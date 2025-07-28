@@ -1,0 +1,3 @@
+type AppHeaderProps = {
+  toggle: () => void;
+};
