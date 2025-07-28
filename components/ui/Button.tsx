@@ -24,7 +24,7 @@ export function AppButton({
       color === "secondary",
     "bg-transparent border hover:bg-white hover:text-black hover:border-black":
       color === "tertiary",
-    "bg-secondary hover:bg-[#0D783A]": color === "alt",
+    "bg-blue-500 hover:bg-blue-600": color === "alt",
   });
 
   return (

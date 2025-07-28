@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 const initialState: AuthState = {
   loggedIn: false,
   email: "",
+  isAdmin: false,
 };
 
 const authSlice = createSlice({
@@ -29,7 +30,7 @@ const reducer = authSlice.reducer;
 const persistConfig: PersistConfig<AuthState> = {
   key: "auth",
   storage,
-  whitelist: ["loggedIn", "email"],
+  whitelist: ["loggedIn", "email", "isAdmin"],
 };
 
 export const authReducer = persistReducer(persistConfig, reducer);

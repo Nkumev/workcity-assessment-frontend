@@ -1,3 +1,4 @@
+@layer theme, base, mui, components, utilities;
 @import "tailwindcss";
 
 :root {
@@ -16,6 +17,8 @@
   --color-primary-shade: #1b2d29;
   --color-primary-alt: #098c67;
   --color-primary-neutral: #263835;
+  --color-secondary: #11b5e4;
+  --color-secondary-dark: #1b3d87;
 }
 
 @media (prefers-color-scheme: dark) {
