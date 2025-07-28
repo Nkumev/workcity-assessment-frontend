@@ -1,0 +1,3 @@
+type GlobalState = {
+  search: string;
+};

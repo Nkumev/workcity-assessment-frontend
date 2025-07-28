@@ -9,11 +9,12 @@ import {
   REGISTER,
 } from "redux-persist";
 
-import { authReducer } from "./reducers";
+import { authReducer, globalReducer } from "./reducers";
 
 export const store = configureStore({
   reducer: {
-    authReducer,
+    auth: authReducer,
+    global: globalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

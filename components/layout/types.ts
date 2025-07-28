@@ -1,0 +1,3 @@
+type UserSidebarProps = {
+  toggle: () => void;
+};

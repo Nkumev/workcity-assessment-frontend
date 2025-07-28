@@ -8,3 +8,7 @@ type AppBtnProps = {
   className?: string;
   variant?: "contained" | "outlined" | "text";
 };
+
+type ProfileWidgetProps = {
+  show: boolean;
+};
