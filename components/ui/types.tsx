@@ -7,6 +7,7 @@ type AppBtnProps = {
   disabled?: boolean;
   className?: string;
   variant?: "contained" | "outlined" | "text";
+  loading?: boolean;
 };
 
 type ProfileWidgetProps = {

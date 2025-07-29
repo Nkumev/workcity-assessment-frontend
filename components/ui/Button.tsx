@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Button from "@mui/material/Button";
+import { IoTimeSharp } from "react-icons/io5";
 
 export function AppButton({
   children,
@@ -9,6 +10,7 @@ export function AppButton({
   onClick,
   disabled,
   className,
+  loading = false,
   variant = "contained",
 }: AppBtnProps) {
   const sizeClass = classNames({
@@ -35,6 +37,7 @@ export function AppButton({
       disabled={disabled}
       variant={variant}
     >
+      {loading && <IoTimeSharp className="mr-2" />}
       {children}
     </Button>
   );

@@ -3,27 +3,60 @@ import { AppButton } from "@/components";
 import { TextField } from "@mui/material";
 import { FormEvent, ChangeEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
-// import { authActions } from "@/actions";
 import { useState } from "react";
 import Link from "next/link";
+import { useAuthActions } from "@/lib";
+import classNames from "classnames";
 
 export function SignupScreen() {
   const router = useRouter();
-  //   const { useLogin } = authActions();
+  const { signup } = useAuthActions();
   const [credentials, setCredentials] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     adminKey: "",
   });
   const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [success, setSuccess] = useState<boolean>();
 
   useEffect(() => {
     setCredentials((prev) => ({ ...prev, adminKey: "" }));
   }, [isAdmin]);
+
+  const feebackClass = classNames("pt-6", {
+    "text-green-500": success,
+    "text-red-500": !success,
+    hidden: !feedback,
+  });
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(credentials);
+    if (!loading) {
+      setLoading(true);
+      signup(credentials).then((res) => {
+        if (res.success) {
+          setFeedback(res.msg);
+          setSuccess(true);
+          router.push("/login");
+        } else {
+          setFeedback(res.msg);
+          setSuccess(false);
+        }
+        setLoading(false);
+        setCredentials({
+          username: "",
+          email: "",
+          password: "",
+          adminKey: "",
+        });
+
+        setTimeout(() => {
+          setFeedback("");
+        }, 2000);
+      });
+    }
   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCredentials({
@@ -32,7 +65,7 @@ export function SignupScreen() {
     });
   };
   return (
-    <main className="flex justify-center items-center h-screen bg-neutral-300">
+    <main className="flex flex-col justify-center items-center h-screen bg-neutral-300">
       <form
         className="w-[280px] lg:w-[540px] p-6 flex flex-col gap-4 bg-neutral-700 rounded-lg"
         onSubmit={handleSubmit}
@@ -41,8 +74,8 @@ export function SignupScreen() {
           SIGNUP
         </h2>
         <TextField
-          name="name"
-          label="Name"
+          name="username"
+          label="Username"
           variant="filled"
           className="bg-white rounded-md"
           color="app-dark"
@@ -86,7 +119,13 @@ export function SignupScreen() {
             onChange={handleChange}
           />
         )}
-        <AppButton size="full" color="alt" type="submit">
+        <AppButton
+          size="full"
+          color="alt"
+          type="submit"
+          loading={loading}
+          disabled={loading}
+        >
           Sign Up
         </AppButton>
         <div className="h-4"></div>
@@ -108,6 +147,7 @@ export function SignupScreen() {
           </p>
         </div>
       </form>
+      <p className={feebackClass}>{feedback}</p>
     </main>
   );
 }

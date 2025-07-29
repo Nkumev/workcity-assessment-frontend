@@ -5,6 +5,7 @@ import { UserHeader } from "./headers/Admin";
 import { UserSidebar } from "./sidebar/User";
 import { PrimeReactProvider } from "primereact/api";
 import Tailwind from "primereact/passthrough/tailwind";
+import { AuthAutoRouter } from "@/hooks";
 
 export function UserLayout({ children }: { children: React.ReactNode }) {
   const [sidebar, openSidebar] = useState(false);
@@ -12,6 +13,7 @@ export function UserLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <PrimeReactProvider value={{ unstyled: true, pt: Tailwind }}>
+      <AuthAutoRouter />
       <div
         className={`w-[200px] bg-primary-dark h-full border-l fixed z-40 left-0 transform transition-transform duration-500 ${
           sidebar ? "translate-x-0" : "translate-x-[-100%] lg:translate-x-0"

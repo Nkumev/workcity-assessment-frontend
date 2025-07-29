@@ -1,8 +1,10 @@
 import { useAppSelector } from "@/hooks";
+import { useAuthActions } from "@/lib";
 import classNames from "classnames";
 
 export function ProfileWidget({ show }: ProfileWidgetProps) {
   const { email } = useAppSelector((state) => state.auth);
+  const { logout } = useAuthActions();
   const menuClass = classNames(
     "profile-menu absolute top-[72px] lg:top-[100px] right-2 w-[200px] bg-primary-dark border border-primary-dark rounded-md text-white",
     { hidden: !show }
@@ -19,7 +21,7 @@ export function ProfileWidget({ show }: ProfileWidgetProps) {
         </li>
         <li
           className="hover:bg-primary-shade hover:text-white p-2 transition-all duration-300 cursor-pointer"
-          // onClick={logout}
+          onClick={() => logout().then(() => {})}
         >
           Logout
         </li>

@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { AppHeader } from "./headers/Base";
 import { AppSidebar } from "./sidebar/Base";
+import { AuthAutoRouter } from "@/hooks";
 
 export function BaseLayout({ children }: { children: React.ReactNode }) {
   const [sidebar, openSidebar] = useState(false);
   return (
     <>
+      <AuthAutoRouter />
       <AppHeader toggle={() => openSidebar(true)} />
       <div
         className={`w-[200px] bg-white h-full border-l fixed z-40 left-0 transform transition-transform duration-500 ${

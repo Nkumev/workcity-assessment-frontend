@@ -34,3 +34,4 @@ const persistConfig: PersistConfig<AuthState> = {
 };
 
 export const authReducer = persistReducer(persistConfig, reducer);
+export * from "./actions";
