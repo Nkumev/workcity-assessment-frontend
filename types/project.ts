@@ -6,8 +6,8 @@ type IProject = {
   clientId: string;
   managerId?: string;
 
-  // client:  Client @relation(fields: [clientId], references: [id])
-  // manager: User?  @relation(fields: [managerId], references: [id])
+  client: IClient;
+  manager?: IUser;
 
   createdAt: string;
   updatedAt: string;

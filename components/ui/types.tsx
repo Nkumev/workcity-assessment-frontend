@@ -1,7 +1,7 @@
 type AppBtnProps = {
   children: React.ReactNode;
   size: "sm" | "md" | "lg" | "full";
-  color: "primary" | "secondary" | "tertiary" | "alt";
+  color: "primary" | "secondary" | "tertiary" | "alt" | "danger";
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
   disabled?: boolean;
@@ -12,4 +12,13 @@ type AppBtnProps = {
 
 type ProfileWidgetProps = {
   show: boolean;
+};
+
+type CountCardProps = {
+  count: number;
+  currency?: boolean;
+  title: string;
+  icon?: React.ReactNode;
+  color?: "primary" | "secondary" | "tertiary" | "alt";
+  loading: boolean;
 };

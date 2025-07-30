@@ -21,12 +21,12 @@ export function AppButton({
   });
 
   const colorClass = classNames({
-    "bg-primary hover:bg-primary-light": color === "primary",
-    "bg-primary-shade text-white hover:bg-primary-neutral":
-      color === "secondary",
+    "bg-primary-alt hover:bg-primary-light": color === "primary",
+    "bg-secondary-dark text-white hover:bg-secondary": color === "secondary",
     "bg-transparent border hover:bg-white hover:text-black hover:border-black":
       color === "tertiary",
     "bg-blue-500 hover:bg-blue-600": color === "alt",
+    "bg-red-700 hover:bg-red-500": color === "danger",
   });
 
   return (
