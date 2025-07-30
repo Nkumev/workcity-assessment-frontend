@@ -1,11 +1,11 @@
 "use client";
 import { useClientActions } from "@/lib/redux/reducers/client/actions";
-import { AdminUsersScreen } from "./admin";
+import { StaffScreen } from "./staff";
 import { ClientsTable } from "./Table";
 import { AnimatePresence, motion } from "framer-motion";
 import { appearAnimation } from "@/lib/utils";
 import { useState } from "react";
-import { ClientForm, DeleteForm } from "@/components/forms/";
+import { ClientForm, DeleteForm, ProjectForm } from "@/components/forms/";
 import { AppButton } from "@/components";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { setClient } from "@/lib";
@@ -35,6 +35,7 @@ export function ClientsScreen() {
       <ClientsTable
         onUpdate={() => setScreen(1)}
         onDelete={() => setScreen(2)}
+        newProject={() => setScreen(3)}
       />
     </main>,
     <ClientForm
@@ -52,6 +53,7 @@ export function ClientsScreen() {
       confirmHandler={async () => deleteClient(client?.id || "")}
       cancelHandler={() => setScreen(0)}
     />,
+    <ProjectForm client={client} cancelHandler={() => setScreen(0)} />,
   ];
   return (
     <AnimatePresence mode="popLayout">
@@ -62,4 +64,4 @@ export function ClientsScreen() {
   );
 }
 
-export { AdminUsersScreen };
+export { StaffScreen };

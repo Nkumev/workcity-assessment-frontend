@@ -14,6 +14,7 @@ import {
   clientReducer,
   globalReducer,
   projectReducer,
+  userReducer,
 } from "./reducers";
 
 export const store = configureStore({
@@ -22,6 +23,7 @@ export const store = configureStore({
     client: clientReducer,
     global: globalReducer,
     project: projectReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

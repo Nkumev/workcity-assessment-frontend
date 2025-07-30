@@ -111,5 +111,6 @@ export function useClientActions() {
     listUrl,
     updateClient,
     deleteClient,
+    url,
   };
 }

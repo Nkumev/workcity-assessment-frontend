@@ -1,10 +1,18 @@
 "use client";
 
 import { AppButton, AppTable } from "@/components";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { setProject } from "@/lib";
 import { wordedDate } from "@/lib/utils";
 
-export function ProjectTable() {
+export function ProjectTable({
+  onUpdate,
+  onDelete,
+}: {
+  onUpdate: () => void;
+  onDelete: () => void;
+}) {
+  const dispatch = useAppDispatch();
   const { projects, loading, total } = useAppSelector((state) => state.project);
 
   const headings: AppTableHeaderProps[] = [
@@ -48,10 +56,24 @@ export function ProjectTable() {
           <AppButton size="sm" color="primary">
             View
           </AppButton>
-          <AppButton size="sm" color="secondary">
+          <AppButton
+            size="sm"
+            color="secondary"
+            onClick={() => {
+              dispatch(setProject(row));
+              onUpdate();
+            }}
+          >
             Edit
           </AppButton>
-          <AppButton size="sm" color="danger">
+          <AppButton
+            size="sm"
+            color="danger"
+            onClick={() => {
+              dispatch(setProject(row));
+              onDelete();
+            }}
+          >
             Delete
           </AppButton>
         </div>

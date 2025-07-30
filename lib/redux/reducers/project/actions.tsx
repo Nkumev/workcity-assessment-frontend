@@ -1,17 +1,37 @@
 "use client";
-import { apiFetch } from "@/axios/requests";
+import { apiFetch, apiPush } from "@/axios/requests";
 import { projectEndpoints } from "@/endpoints";
 import { useAppDispatch } from "@/hooks";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { setProjectLoading, setProjects, setProjectTotal } from ".";
+import { useClientActions } from "../client/actions";
 
 export function useProjectActions() {
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
+  const { url: clientUrl } = useClientActions();
   const page = searchParams.get("page");
   const limit = searchParams.get("limit");
+  const [url, setUrl] = useState(projectEndpoints.base);
+
+  useEffect(() => {
+    const queries: string[] = [];
+
+    if (page && parseInt(page) > 1) {
+      queries.push(`page=${page}`);
+    }
+
+    if (limit && parseInt(limit) >= 10) {
+      queries.push(`limit=${limit}`);
+    }
+
+    const dist = queries.length
+      ? `${projectEndpoints.base}?${queries.join("&")}`
+      : projectEndpoints.base;
+    setUrl(dist);
+  }, [searchParams]);
 
   async function listProjects() {
     const { data, error, isLoading } = useSWR(listUrl(), apiFetch);
@@ -25,7 +45,7 @@ export function useProjectActions() {
 
       if (data) {
         const response: ProjectListResponse = data;
-        console.log(response);
+        console.table(response.data);
 
         dispatch(setProjects(response.data));
         dispatch(setProjectTotal(response.total));
@@ -57,11 +77,39 @@ export function useProjectActions() {
 
   async function getProject() {}
 
-  async function createProject() {}
+  async function createProject(dto: CreateProjectDto) {
+    try {
+      const res: StandardResponse<IProject> = await apiPush(
+        projectEndpoints.base,
+        "POST",
+        dto,
+        clientUrl
+      );
 
-  async function updateProject() {}
+      return { success: true, msg: res.message };
+    } catch (e: any) {
+      return { success: false, msg: e.message };
+    }
+  }
 
-  async function deleteProject() {}
+  async function updateProject(id: string, dto: CreateProjectDto) {
+    try {
+      const res: StandardResponse<IProject> = await apiPush(
+        projectEndpoints.one(id),
+        "PATCH",
+        dto,
+        url
+      );
+
+      return { success: true, msg: res.message };
+    } catch (e: any) {
+      return { success: false, msg: e.message };
+    }
+  }
+
+  async function deleteProject(id: string) {
+    await apiPush(projectEndpoints.one(id), "DELETE", {}, url);
+  }
 
   return {
     listProjects,
@@ -69,5 +117,6 @@ export function useProjectActions() {
     createProject,
     updateProject,
     deleteProject,
+    url,
   };
 }

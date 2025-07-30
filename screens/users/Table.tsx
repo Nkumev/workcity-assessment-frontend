@@ -7,9 +7,11 @@ import { setClient } from "@/lib";
 export function ClientsTable({
   onUpdate,
   onDelete,
+  newProject,
 }: {
   onUpdate: () => void;
   onDelete: () => void;
+  newProject: () => void;
 }) {
   const dispatch = useAppDispatch();
   const { clients, loading, total } = useAppSelector((state) => state.client);
@@ -18,6 +20,14 @@ export function ClientsTable({
     { title: "Name", key: "name", sortable: true },
     { title: "Email", key: "email", sortable: true },
     { title: "Phone", key: "phone", sortable: true },
+    {
+      title: "Open Projects",
+      key: "_count.projects",
+      sortable: true,
+      body: (row: IClient) => (
+        <span>{row._count?.projects.toLocaleString() || 0}</span>
+      ),
+    },
     { title: "Address", key: "address", sortable: true },
     { title: "Industry", key: "industry", sortable: true },
     {
@@ -34,6 +44,16 @@ export function ClientsTable({
             }}
           >
             update
+          </AppButton>
+          <AppButton
+            size="sm"
+            color="secondary"
+            onClick={() => {
+              dispatch(setClient(row));
+              newProject();
+            }}
+          >
+            + project
           </AppButton>
           <AppButton
             size="sm"

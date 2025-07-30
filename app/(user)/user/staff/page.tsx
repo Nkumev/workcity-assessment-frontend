@@ -1,3 +1,3 @@
-import { AdminUsersScreen } from "@/screens";
+import { StaffScreen } from "@/screens";
 
-export default AdminUsersScreen;
+export default StaffScreen;
