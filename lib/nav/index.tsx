@@ -18,14 +18,15 @@ export const NavigationItems: SideBarItem[] = [
     name: "Users",
     route: "/user",
     icon: <FaUserCircle />,
+    adminOnly: true,
     children: [
       {
         name: "Clients",
         route: "/user/client",
       },
       {
-        name: "Admin",
-        route: "/user/admin",
+        name: "Staff",
+        route: "/user/staff",
       },
     ],
   },

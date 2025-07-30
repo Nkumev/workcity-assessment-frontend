@@ -9,11 +9,17 @@ import {
   REGISTER,
 } from "redux-persist";
 
-import { authReducer, globalReducer, projectReducer } from "./reducers";
+import {
+  authReducer,
+  clientReducer,
+  globalReducer,
+  projectReducer,
+} from "./reducers";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    client: clientReducer,
     global: globalReducer,
     project: projectReducer,
   },

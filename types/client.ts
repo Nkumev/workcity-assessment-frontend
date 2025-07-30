@@ -7,6 +7,9 @@ type IClient = {
   industry: string;
 
   projects?: IProject[];
+  _count?: {
+    projects: number;
+  };
 
   createdAt: string;
   updatedAt: string;

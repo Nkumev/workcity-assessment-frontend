@@ -2,6 +2,7 @@ type SideBarItemChild = {
   name: string;
   route: string;
   icon?: React.ReactNode;
+  adminOnly?: boolean;
 };
 
 type SideBarItem = {
@@ -9,6 +10,7 @@ type SideBarItem = {
   route: string;
   icon: React.ReactNode;
   children?: SideBarItemChild[];
+  adminOnly?: boolean;
 };
 
 type NavItemProps = {

@@ -4,11 +4,13 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { MdArrowDropDown } from "react-icons/md";
+import { useAppSelector } from "@/hooks";
 
 export function NavItem({
-  nav: { name, route, icon, children },
+  nav: { name, route, icon, children, adminOnly },
   path,
 }: NavItemProps) {
+  const { isAdmin } = useAppSelector((state) => state.auth);
   const routePath = route.split("/").filter((item) => item !== "");
   const currentPath = path.split("/").filter((item) => item !== "");
 
@@ -39,6 +41,8 @@ export function NavItem({
     "text-white": activeParent,
   });
 
+  if (adminOnly && !isAdmin) return null;
+
   if (children && children.length) {
     return (
       <Accordion className="w-[160px] bg-transparent border-none shadow-none p-0">
@@ -64,6 +68,7 @@ export function NavItem({
                 "bg-primary text-white": activeChild,
               }
             );
+            if (item.adminOnly && !isAdmin) return null;
             return (
               <Link
                 key={item.name}
