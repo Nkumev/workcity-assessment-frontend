@@ -35,7 +35,11 @@ export function SignupScreen() {
     e.preventDefault();
     if (!loading) {
       setLoading(true);
-      signup(credentials).then((res) => {
+
+      const { adminKey, ...rest } = credentials;
+
+      const payload = isAdmin ? credentials : rest;
+      signup(payload).then((res) => {
         if (res.success) {
           setFeedback(res.msg);
           setSuccess(true);

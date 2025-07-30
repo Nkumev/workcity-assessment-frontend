@@ -1,0 +1,7 @@
+export enum ProjectStatus {
+  REQUESTED = "REQUESTED",
+  ACCEPTED = "ACCEPTED",
+  IN_PROGRESS = "IN_PROGRESS",
+  REVIEW = "REVIEW",
+  COMPLETED = "COMPLETED",
+}
