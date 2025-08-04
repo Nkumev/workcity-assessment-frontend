@@ -45,7 +45,6 @@ export function useProjectActions() {
 
       if (data) {
         const response: ProjectListResponse = data;
-        console.table(response.data);
 
         dispatch(setProjects(response.data));
         dispatch(setProjectTotal(response.total));
